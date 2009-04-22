@@ -17,7 +17,7 @@ requires 'Catalyst::View::TT';
 requires 'parent';
 requires 'Config::General';
 requires 'Net::OpenID::Consumer';
-requires 'LWPx::ParanoidAgent'
+requires 'LWPx::ParanoidAgent';
 requires 'Rose::HTML::Form';
 
 catalyst;
