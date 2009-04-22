@@ -1,10 +1,10 @@
 #!/usr/bin/perl -w
 
-BEGIN { 
+BEGIN {
     $ENV{CATALYST_ENGINE} ||= 'HTTP';
-    $ENV{CATALYST_SCRIPT_GEN} = 31;
+    $ENV{CATALYST_SCRIPT_GEN} = 32;
     require Catalyst::Engine::HTTP;
-}  
+}
 
 use strict;
 use warnings;
