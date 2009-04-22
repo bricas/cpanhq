@@ -25,7 +25,7 @@ __PACKAGE__->config(
     authentication => {
         default_realm => 'openid',
         realms => {
-            openid => { 
+            openid => {
                 auto_create_user => 1,
                 credential => {
                     class => 'Password',
