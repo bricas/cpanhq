@@ -51,7 +51,6 @@ __PACKAGE__->deny_access_unless( '/authenticate/logout', sub { shift->user_exist
 sub form {
     my ( $c, $name, @args ) = @_;
 
-    # this will break in 5.71
     return $c->_filter_component( $c->_comp_search_prefixes( $name, 'Form' ),
         @args );
 }
