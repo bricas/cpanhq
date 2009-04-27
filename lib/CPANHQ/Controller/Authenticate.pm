@@ -11,7 +11,7 @@ use LWPx::ParanoidAgent;
 sub login : Path('/login') Args(0) {
     my ( $self, $c ) = @_;
     my $form = $c->form( 'Login' );
-    $c->stash( form => $form );
+    $c->stash( form => $form, title => 'Login' );
 
     return unless $form->was_submitted && $form->is_valid;
 
