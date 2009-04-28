@@ -32,6 +32,9 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->resultset_attributes( { order_by => [ 'cpanid' ] } );
 __PACKAGE__->add_unique_constraint( [ 'cpanid' ] );
+__PACKAGE__->has_many(
+    releases => 'CPANHQ::Storage::Release', 'author_id'
+);
 
 sub display_name {
     my $self = shift;
