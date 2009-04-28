@@ -45,21 +45,21 @@ while ( defined ( my $file = $file_it->() ) ) {
 
     # handle dist author
     my $author = $authors->author( $dist->cpanid );
-    my $db_author = $author_rs->find_or_create( { cpanid => $author->pauseid, email => $author->email, name => $author->name }, { key => 'author_cpanid' } );
+    my $db_author = $author_rs->update_or_create( { cpanid => $author->pauseid, email => $author->email, name => $author->name }, { key => 'author_cpanid' } );
 
     # handle dist
     my $db_dist = $dist_rs->find_or_create( { name => $dist->dist }, { key => 'distribution_name' } );
 
     # handle release
     my $stat = Path::Class::File->new( $file )->stat;
-    my $db_release = $release_rs->find_or_create( {
+    my $db_release = $release_rs->update_or_create( {
         distribution_id => $db_dist->id,
         version => $dist->version,
         author_id => $db_author->id,
         path => $dist->prefix,
         developer_release => ( $dist->maturity eq 'developer' ? 1 : 0 ),
         size => $stat->size,
-        release_date => DateTime->from_epoch( epoch => $stat->ctime ),
+        release_date => DateTime->from_epoch( epoch => $stat->mtime ),
     }, { key => 'release_distribution_id_version' } );
 }
 

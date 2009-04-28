@@ -1,0 +1,6 @@
+<h2>Recent Uploads</h2>
+<ul>
+[% WHILE ( release = releases.next ) %]
+    <li>[% release.name %]</li>
+[% END %]
+</ul>

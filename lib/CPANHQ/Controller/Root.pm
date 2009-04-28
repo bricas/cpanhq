@@ -37,6 +37,11 @@ sub default :Path {
    
 }
 
+sub recent :Path('recent') {
+    my ( $self, $c ) = @_;
+    $c->stash->{ releases } = $c->model( 'DB::Release' )->search( {}, { rows => 50 } );
+}
+
 =head2 end
 
 Attempt to render a view, if needed.
