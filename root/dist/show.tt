@@ -1,0 +1,2 @@
+<h2>[% latest_release.name %]</h2>
+<p>By [% latest_release.author.name %], released on [% latest_release.release_date.ymd %]</p>

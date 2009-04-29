@@ -31,4 +31,8 @@ __PACKAGE__->many_to_many(
 );
 __PACKAGE__->add_unique_constraint( [ 'name' ] );
 
+sub latest_release {
+    return shift->releases->first;
+}
+
 1;
