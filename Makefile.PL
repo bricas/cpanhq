@@ -3,7 +3,7 @@ use inc::Module::Install;
 name 'CPANHQ';
 all_from 'lib/CPANHQ.pm';
 
-requires 'Catalyst::Runtime' => '5.80001';
+requires 'Catalyst::Runtime' => '5.80003';
 requires 'Catalyst::Action::RenderView' => '0.07';
 requires 'Catalyst::Model::DBIC::Schema';
 requires 'Catalyst::Plugin::Authentication' => '0.100091';
