@@ -1,0 +1,7 @@
+<h2>[% author.name %] ([% author.cpanid %])</h2>
+[% releases = author.releases_rs %]
+<ul>
+[% WHILE( release = releases.next ) %]
+<li><a href="[% c.uri_for( '/dist', release.distribution.name, release.version ) %]">[% release.name %]</a></li>
+[% END %]
+</ul>
