@@ -1,2 +1,3 @@
 <h2>[% release.name %]</h2>
-<p>By [% release.author.name %], released on [% release.release_date.ymd %]</p>
+[% author = release.author %]
+<p>By <a href="[% c.uri_for( '/author', author.cpanid ) %]">[% author.name %]</a>, released on [% release.release_date.ymd %]</p>
