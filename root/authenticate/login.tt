@@ -1,1 +1,2 @@
+<h2>Login via OpenID</h2>
 [% form.render %]

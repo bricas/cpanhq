@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f1e6b9 url(../images/bg-rep.png);
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: medium;
+    color: #111;
+}
+
+#wrapper {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    height: 90px;
+    padding-left: 334px;
+    background: url(../images/logo.png) no-repeat center left;
+    position: relative;
+}
+
+#header .login {
+    position: absolute;
+    top: -1.5em;
+    right: 0;
+    font-size: small;
+}
+
+#footer {
+    clear: both;
+}
+
+#content {
+    background: #fcf3ca;
+    border: 1px solid #cb9b71;
+    width: 675px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 1em;
+    padding: 15px;
+}
+
+#sidebar {
+    float: left;
+    width: 273px;
+}
+
+#topmenu, #botmenu {
+    margin-left: 0;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+#topmenu {
+    width: 500px;
+    float: right;
+    padding: 3px;
+    margin-top: 10px;
+}
+
+#topmenu a {
+    padding: 3px;
+    color: #444;
+    text-decoration: none;
+    font-size: x-large;
+    font-weight: bold;
+    border-bottom: 0;
+}
+
+#topmenu li {
+    float: left;
+    width: 100px;
+    text-align: right;
+}
+
+#botmenu li {
+    font-size: small;
+    display: inline;
+}
+
+#botmenu a {
+    border-bottom: 0;
+    padding: 3px 0;
+    color: #444;
+    text-decoration: none;
+}
+
+#sidebar h2 {
+    color: #f5f5f5;
+    background: #444;
+    padding: 3px 3px 3px 7px;
+    margin-top: 0;
+}
+
+#tweets {
+    margin: 0;
+    background: #ece3ba;
+    border: 1px solid #bb8b61;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#tweets li {
+    font-style: italic;
+    margin: 5px 7px;
+    padding: 0;
+}
+
+#tweets .link {
+    font-size: small;
+}
+
+#tweets .link a {
+    color: #93a092;
+}
+
+a:link {
+    color: #738072;
+    border-bottom: 1px dotted #ccc;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #536052;
+}
+
+h1 {
+    display: none;
+}
+
+h2 {
+    font-size: x-large;
+}
+
+#content h2 {
+    margin: 0 0 15px 0;
+}
+
+#botmenu li {
+    border-left: 1px solid #000;
+    margin-left: 10px;
+    padding-left: 14px;
+}
+
+#botmenu li.first {
+    border-left: 0;
+    margin-left: 0;
+    padding-left: 0;
+}
+

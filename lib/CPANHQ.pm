@@ -16,6 +16,7 @@ use Catalyst qw(
     Static::Simple
 );
 
+require LWP::Debug; # to satisfy LWPx::ParanoidAgent
 our $VERSION = '0.01';
 
 __PACKAGE__->config(

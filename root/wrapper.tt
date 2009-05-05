@@ -3,8 +3,47 @@
 <head>
 <meta charset=utf-8>
 <title>CPANHQ[% IF title; " - $title"; END %]</title>
+<link type="text/css" rel=stylesheet href="[% c.uri_for( '/static/css/cpanhq.css' ) %]">
 </head>
 <body>
+<div id=wrapper>
+    <div id=header>
+<h1>CPANHQ</h1>
+<ul id=topmenu>
+    <li><a href="[% c.uri_for('/') %]">Home</a></li>
+    <li><a href="[% c.uri_for('/about') %]">About</a></li>
+    <li><a href="http://github.com/bricas/cpanhq/">Code</a></li>
+    <li><a href="[% c.uri_for('/status') %]">Status</a></li>
+    <li><a href="http://github.com/bricas/cpanhq/issues">Issues</a></li>
+</ul>
+<p class="login">
+[% IF c.user_exists %]
+Logged in as [% c.user.display_name %] (<a href="[% c.uri_for('/logout') %]">Logout</a>)
+[% ELSE %]
+Not logged in (<a href="[% c.uri_for('/login') %]">Login</a>)
+[% END %]
+</p>
+    </div>
+    <div id=content>
 [% content %]
+    </div>
+    <div id=sidebar>
+<h2>CPANHQ Updates</h2>
+<ul id=tweets>
+[% FOREACH tweet IN tweets.items %]
+    <li>[% tweet.description.remove( '^cpanhq: ' ) %] <span class="link">(<a href="[% tweet.link %]">link</a>)</span></li>
+[% END %]
+</ul>
+<p style="text-align: right;">Follow us on <a href="http://twitter.com/cpanhq">Twitter</a>.</p>
+    </div>
+    <div id=footer>
+<ul id=botmenu>
+    <li class=first><a href="[% c.uri_for('/about') %]">About CPANHQ</a></li>
+    <li>Licensed under the same terms as Perl itself</li>
+</ul>
+
+    </div>
+</div>
+
 </body>
 </html>

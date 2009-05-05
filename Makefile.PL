@@ -20,6 +20,10 @@ requires 'Net::OpenID::Consumer';
 requires 'LWPx::ParanoidAgent';
 requires 'Rose::HTML::Form';
 
+# for twitter feed
+requires 'XML::RSS';
+requires 'LWP::Simple';
+
 catalyst;
 
 install_script glob('script/*.pl');

@@ -1,0 +1,4 @@
+<h2>Introducing CPANHQ.</h2>
+<p>What is CPANHQ? In a nutshell, a community-driven, metadata-enhanced, search.cpan.org replacement.</p>
+<p><strong>The project is still in the early stages of development.</strong> Check out the <a href="[% c.uri_for( '/status' ) %]">status page</a> to see what we have done thus far.</p>
+<p>Still curious? <a href="[% c.uri_for( '/about' ) %]">Find out more...</a></p>

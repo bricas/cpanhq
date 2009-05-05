@@ -1,0 +1,8 @@
+[% title = 'Status' %]
+<h2>CPANHQ Status</h2>
+<ul>
+<li><a href="http://github.com/bricas/cpanhq/blob/36783b5bd8b56b0cc9b6b023ac7270cf2199f0cb/tmp/index.pl">Basic indexing</a> is complete</li>
+<li>View a list of <a href="[% c.uri_for( '/recent' ) %]">recent uploads</a></li>
+<li><a href="[% c.uri_for( '/author/BRICAS' ) %]">Author page</a> started</li>
+<li><a href="[% c.uri_for( '/dist/Image-TextMode' ) %]">Distribution page</a> started</li>
+<li><a href="[% c.uri_for( '/dist/Image-TextMode/0.05' ) %]">Specific version of a release</a> is also available</li>

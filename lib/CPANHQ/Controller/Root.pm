@@ -4,6 +4,8 @@ use strict;
 use warnings;
 
 use parent 'Catalyst::Controller';
+use XML::RSS;
+use LWP::Simple qw(get);
 
 __PACKAGE__->config->{namespace} = '';
 
@@ -19,19 +21,36 @@ CPANHQ::Controller::Root - Root Controller for CPANHQ
 
 =cut
 
+=head2 auto
+
+=cut
+
+sub auto : Private {
+    my( $self, $c ) = @_;
+    my $rss = XML::RSS->new;
+    $rss->parse( get( 'http://twitter.com/statuses/user_timeline/36758099.rss' ) );
+    $c->stash( tweets => $rss );
+    return 1;
+}
+
 =head2 index
 
 =cut
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    # Hello World
-    $c->response->body( $c->welcome_message );
+    return;
 }
 
 sub default :Path {
-    my ( $self, $c ) = @_;
+    my ( $self, $c, @args ) = @_;
+
+    $args[ -1 ] .= '.tt';
+    if( -e $c->path_to( 'root', @args ) ) {
+        $c->stash( template => join( '/', @args ) );
+        return;
+    }
+
     $c->response->body( 'Page not found' );
     $c->response->status(404);
    
