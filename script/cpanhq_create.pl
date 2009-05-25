@@ -51,7 +51,6 @@ cpanhq_create.pl [options] model|view|controller name [helper] [options]
 
  Examples:
    cpanhq_create.pl controller My::Controller
-   cpanhq_create.pl controller My::Controller BindLex
    cpanhq_create.pl -mechanize controller My::Controller
    cpanhq_create.pl view My::View
    cpanhq_create.pl view MyView TT
