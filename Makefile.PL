@@ -27,5 +27,4 @@ requires 'LWP::Simple';
 catalyst;
 
 install_script glob('script/*.pl');
-auto_install;
 WriteAll;
