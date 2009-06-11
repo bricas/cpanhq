@@ -19,6 +19,8 @@ requires 'Config::General';
 requires 'Net::OpenID::Consumer';
 requires 'LWPx::ParanoidAgent';
 requires 'Rose::HTML::Form';
+requires 'DBIx::Class';
+requires 'DBIx::Class::TimeStamp';
 
 # for twitter feed
 requires 'XML::RSS';
