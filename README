@@ -1,1 +1,22 @@
 Run script/cpanhq_server.pl to test the application.
+
+------------------------------------
+
+To get the tests running do this:
+
+1. Set up minicpan ( http://search.cpan.org/perldoc?minicpan ).
+
+2. Mirror CPAN.
+
+3. "perl Makefile.PL" - make sure all dependencies are installed.
+
+4. Run "make"
+
+5. Run "perl tmp/deploy.pl"
+
+6. Run "perl tmp/index.pl /path/to/my/minicpan"
+
+Where /path/to/my/minicpan is the path to your minicpan mirror.
+
+7. Run "make test".
+
