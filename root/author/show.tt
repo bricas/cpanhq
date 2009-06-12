@@ -1,4 +1,29 @@
 <h2>[% author.name %] ([% author.cpanid %])</h2>
+
+<table class="info">
+<tr>
+[%- SET cpan_dir = "authors/id/" _
+    author.cpanid.substr(0,1) _ "/" _
+    author.cpanid.substr(0,2) _ "/" _
+    author.cpanid _ "/" -%]
+<td class="key">CPAN Directory</td>
+<td class="value">
+<a href="http://search.cpan.org/CPAN/[% cpan_dir %]">SHLOMIF</a>
+(<a href="http://backpan.perl.org/[% cpan_dir %]">Archive</a>)
+</td>
+</tr>
+[%- SET email_esc = HTML.escape(author.email) -%]
+<tr>
+<td class="key">Email</td>
+<td class="value"><a href="mailto:[% email_esc %]">[% email_esc %]</a></td>
+</tr>
+[%- SET homepage_esc = HTML.escape(author.homepage) -%]
+<tr>
+<td class="key">Homepage</td>
+<td class="value"><a href="[% homepage_esc %]">[% homepage_esc %]</a></td>
+</tr>
+</table>
+
 [% releases = author.releases_rs %]
 <ul>
 [% WHILE( release = releases.next ) %]
