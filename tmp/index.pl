@@ -7,10 +7,12 @@ use lib 'lib';
 
 use Path::Class::Dir;
 use Path::Class::File;
-use Parse::CPAN::Authors;
+use Parse::CPAN::Whois;
 use Parse::CPAN::Packages;
 use DateTime;
 use File::Next;
+use LWP::Simple;
+
 require CPANHQ;
 
 $|++;
@@ -20,9 +22,18 @@ die "USAGE: $0 /path/to/cpan/" unless $cpan_base;
 
 $cpan_base = Path::Class::Dir->new( $cpan_base );
 
+my $authors_xml_fn = $cpan_base->file( qw( authors 00whois.xml ) )->stringify;
+
+print "Fetching Authors...\n";
+
+if (! -e $authors_xml_fn)
+{
+    getstore("http://www.cpan.org/authors/00whois.xml", $authors_xml_fn);
+}
+
 print "Loading Authors...\n";
 
-my $authors = Parse::CPAN::Authors->new( $cpan_base->file( qw( authors 01mailrc.txt.gz ) )->stringify );
+my $authors = Parse::CPAN::Whois->new( $authors_xml_fn );
 my $author_rs = CPANHQ->model('DB::Author');
 
 print "Loading Packages...\n";
@@ -45,7 +56,7 @@ while ( defined ( my $file = $file_it->() ) ) {
 
     # handle dist author
     my $author = $authors->author( $dist->cpanid );
-    my $db_author = $author_rs->update_or_create( { cpanid => $author->pauseid, email => $author->email, name => $author->name }, { key => 'author_cpanid' } );
+    my $db_author = $author_rs->update_or_create( { cpanid => $author->pauseid, email => ($author->email || ""), name => $author->name, homepage => $author->homepage, }, { key => 'author_cpanid' } );
 
     # handle dist
     my $db_dist = $dist_rs->find_or_create( { name => $dist->dist }, { key => 'distribution_name' } );
