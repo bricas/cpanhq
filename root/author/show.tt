@@ -1,3 +1,4 @@
+[%- USE HTML -%]
 <h2>[% author.name %] ([% author.cpanid %])</h2>
 
 <table class="info">
