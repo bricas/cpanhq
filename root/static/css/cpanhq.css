@@ -152,11 +152,11 @@ h2 {
     padding-left: 0;
 }
 
-table.info {
+table.info, table.distributions {
     border-collapse: collapse;
 }
 
-table.info td {
+table.info td, table.distributions td {
     border: black thin solid;
     padding: 0.3em;
 }

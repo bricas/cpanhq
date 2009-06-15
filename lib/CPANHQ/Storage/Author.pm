@@ -5,6 +5,8 @@ use warnings;
 
 use base qw( DBIx::Class );
 
+use List::MoreUtils qw(uniq);
+
 __PACKAGE__->load_components( qw( Core ) );
 __PACKAGE__->table( 'author' );
 __PACKAGE__->add_columns(
@@ -45,6 +47,26 @@ __PACKAGE__->has_many(
 sub display_name {
     my $self = shift;
     return sprintf '%s <%s>', $self->name, $self->email;
+}
+
+sub distributions {
+    my $self = shift;
+
+    my $ret =
+        $self
+            ->related_resultset('releases')
+            ->related_resultset('distribution')
+            ->search(undef,
+                { 
+                    distinct => 1, 
+                    'select' => [qw/distribution.id distribution.name/], 
+                    'as' => [qw/id name/],
+                    order_by => 'name'
+                }
+            )
+        ;
+
+    return $ret;
 }
 
 1;

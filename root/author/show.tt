@@ -31,3 +31,24 @@
 <li><a href="[% c.uri_for( '/dist', release.distribution.name, release.version ) %]">[% release.name %]</a> on [% release.release_date.ymd %]</li>
 [% END %]
 </ul>
+
+<!--
+TODO : put the distributions and the releases into different tabs, switchable
+using JS/CSS.
+
+TODO : make the distribution contain more fields, like last release date, 
+current version, etc.
+
+TODO : make the distribution table sortable by more fields. (using either
+JavaScript, HTTP parameters or both)
+-->
+[% distros = author.distributions %]
+<table class="distributions">
+[% WHILE( dist = distros.next ) %]
+<tr>
+<td class="dist">
+<a href="[% c.uri_for( '/dist', dist.name ) %]">[% dist.name %]</a>
+</td>
+</tr>
+[% END %]
+</table>
