@@ -8,7 +8,7 @@
     author.cpanid _ "/" -%]
 <td class="key">CPAN Directory</td>
 <td class="value">
-<a href="http://search.cpan.org/CPAN/[% cpan_dir %]">SHLOMIF</a>
+<a href="http://search.cpan.org/CPAN/[% cpan_dir %]">[% author.cpanid %]</a>
 (<a href="http://backpan.perl.org/[% cpan_dir %]">Archive</a>)
 </td>
 </tr>
