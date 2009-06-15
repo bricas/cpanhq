@@ -28,7 +28,13 @@ __PACKAGE__->add_columns(
         size        => 255,
         is_nullable => 0,
     },
+    homepage => {
+        data_type   => 'varchar',
+        size        => 255,
+        is_nullable => 1,
+    },
 );
+
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->resultset_attributes( { order_by => [ 'cpanid' ] } );
 __PACKAGE__->add_unique_constraint( [ 'cpanid' ] );
