@@ -4,7 +4,18 @@
 <meta charset=utf-8>
 <title>CPANHQ[% IF title; " - $title"; END %]</title>
 <link type="text/css" rel=stylesheet href="[% c.uri_for( '/static/css/cpanhq.css' ) %]">
+<!-- Prevent the hot-linking as well as the fact these header elements appear
+on all pages 
+-->
+<link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet">
 <script type="text/javascript" src="[% c.uri_for( '/static/js/jquery.js') %]"></script>
+<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
+<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.tabs.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#tabs").tabs();
+  });
+</script>
 </head>
 <body>
 <div id=wrapper>

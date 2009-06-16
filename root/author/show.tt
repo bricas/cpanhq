@@ -24,13 +24,25 @@
 <td class="value"><a href="[% homepage_esc %]">[% homepage_esc %]</a></td>
 </tr>
 </table>
+<!--
+TODO : Get rid of this hot-linking. It's temporary to see if it works.
+-->
 
+<div id="tabs">
+
+<ul>
+<li><a href="#tabs-1">Releases</a></li>
+<li><a href="#tabs-2">Distributions</a></li>
+</ul>
+
+<div id="tabs-1">
 [% releases = author.releases_rs %]
 <ul>
 [% WHILE( release = releases.next ) %]
 <li><a href="[% c.uri_for( '/dist', release.distribution.name, release.version ) %]">[% release.name %]</a> on [% release.release_date.ymd %]</li>
 [% END %]
 </ul>
+</div>
 
 <!--
 TODO : put the distributions and the releases into different tabs, switchable
@@ -42,6 +54,7 @@ current version, etc.
 TODO : make the distribution table sortable by more fields. (using either
 JavaScript, HTTP parameters or both)
 -->
+<div id="tabs-2">
 [% distros = author.distributions %]
 <table class="distributions">
 [% WHILE( dist = distros.next ) %]
@@ -52,3 +65,6 @@ JavaScript, HTTP parameters or both)
 </tr>
 [% END %]
 </table>
+</div>
+
+</div>
