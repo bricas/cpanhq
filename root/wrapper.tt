@@ -4,6 +4,7 @@
 <meta charset=utf-8>
 <title>CPANHQ[% IF title; " - $title"; END %]</title>
 <link type="text/css" rel=stylesheet href="[% c.uri_for( '/static/css/cpanhq.css' ) %]">
+<script type="text/javascript" src="[% c.uri_for( '/static/js/jquery.js') %]"></script>
 </head>
 <body>
 <div id=wrapper>
