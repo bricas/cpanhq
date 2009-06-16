@@ -27,8 +27,33 @@ CPANHQ::Controller::Root - Root Controller for CPANHQ
 
 sub auto : Private {
     my( $self, $c ) = @_;
+
     my $rss = XML::RSS->new;
-    $rss->parse( get( 'http://twitter.com/statuses/user_timeline/36758099.rss' ) );
+
+=begin TwitterElimination
+    # Getting rid of the Twitter feed, because:
+    #
+    # 1. Twitter is down at the moment.
+    #
+    # 2. It returns an HTTP error code of 200 ("OK") with a weirdo XML
+    # instead of 4xx/5xx.
+    #
+    # 3. It makes the CPANHQ server slow.
+    #
+    # 4. It emits a warning.
+
+    my $content = get(
+        'http://twitter.com/statuses/user_timeline/36758099.rss'
+    );
+
+    if (defined($content)) {
+        $rss->parse( $content );
+    }
+
+=end TwitterElimination
+
+=cut
+
     $c->stash( tweets => $rss );
     return 1;
 }
