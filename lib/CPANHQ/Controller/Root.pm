@@ -19,27 +19,20 @@ CPANHQ::Controller::Root - Root Controller for CPANHQ
 
 =cut
 
-=head2 auto
+=begin auto_remmed-out
 
-=cut
+=head2 auto
 
 sub auto : Private {
     my( $self, $c ) = @_;
 
-    my $content;
-
-    # We cache the tweets.html-portion. It should be updated using
-    # tmp/gen-twitter-feed.pl using a cron job.
-    {
-        local $/;
-        open my $in, "<", "root/static/tweets.html-portion";
-        binmode $in, ":utf8";
-        $content = <$in>;
-        close($in);
-    }
-    $c->stash( tweets_html => $content );
+    $c->stash( key => $value );
     return 1;
 }
+
+=end auto_remmed_out
+=cut
+
 
 =head2 index
 

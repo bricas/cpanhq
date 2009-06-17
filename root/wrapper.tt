@@ -27,7 +27,7 @@ Not logged in (<a href="[% c.uri_for('/login') %]">Login</a>)
     <div id=content>
 [% content %]
     </div>
-[% tweets_html %]
+[% INSERT "static/tweets.html-portion" %]
     <div id=footer>
 <ul id=botmenu>
     <li class=first><a href="[% c.uri_for('/about') %]">About CPANHQ</a></li>
