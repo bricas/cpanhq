@@ -16,7 +16,7 @@ if (defined($content)) {
 
     $tweets->parse( $content );
 
-    open my $html_fh, ">>", "./root/static/tweets.html-portion";
+    open my $html_fh, ">", "./root/static/tweets.html-portion";
     print {$html_fh} <<'EOF';
         <div id=sidebar>
 <h2>CPANHQ Updates</h2>
