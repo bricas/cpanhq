@@ -4,8 +4,6 @@ use strict;
 use warnings;
 
 use parent 'Catalyst::Controller';
-use XML::RSS;
-use LWP::Simple qw(get);
 
 __PACKAGE__->config->{namespace} = '';
 
@@ -20,43 +18,6 @@ CPANHQ::Controller::Root - Root Controller for CPANHQ
 =head1 METHODS
 
 =cut
-
-=head2 auto
-
-=cut
-
-sub auto : Private {
-    my( $self, $c ) = @_;
-
-    my $rss = XML::RSS->new;
-
-=begin TwitterElimination
-    # Getting rid of the Twitter feed, because:
-    #
-    # 1. Twitter is down at the moment.
-    #
-    # 2. It returns an HTTP error code of 200 ("OK") with a weirdo XML
-    # instead of 4xx/5xx.
-    #
-    # 3. It makes the CPANHQ server slow.
-    #
-    # 4. It emits a warning.
-
-    my $content = get(
-        'http://twitter.com/statuses/user_timeline/36758099.rss'
-    );
-
-    if (defined($content)) {
-        $rss->parse( $content );
-    }
-
-=end TwitterElimination
-
-=cut
-
-    $c->stash( tweets => $rss );
-    return 1;
-}
 
 =head2 index
 

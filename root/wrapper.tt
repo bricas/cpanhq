@@ -39,15 +39,7 @@ Not logged in (<a href="[% c.uri_for('/login') %]">Login</a>)
     <div id=content>
 [% content %]
     </div>
-    <div id=sidebar>
-<h2>CPANHQ Updates</h2>
-<ul id=tweets>
-[% FOREACH tweet IN tweets.items %]
-    <li>[% tweet.description.remove( '^cpanhq: ' ) %] <span class="link">(<a href="[% tweet.link %]">link</a>)</span></li>
-[% END %]
-</ul>
-<p style="text-align: right;">Follow us on <a href="http://twitter.com/cpanhq">Twitter</a>.</p>
-    </div>
+[% INSERT "static/tweets.html-portion" %]
     <div id=footer>
 <ul id=botmenu>
     <li class=first><a href="[% c.uri_for('/about') %]">About CPANHQ</a></li>
