@@ -19,21 +19,6 @@ CPANHQ::Controller::Root - Root Controller for CPANHQ
 
 =cut
 
-=begin auto_remmed-out
-
-=head2 auto
-
-sub auto : Private {
-    my( $self, $c ) = @_;
-
-    $c->stash( key => $value );
-    return 1;
-}
-
-=end auto_remmed_out
-=cut
-
-
 =head2 index
 
 =cut
