@@ -24,9 +24,12 @@
 <td class="value"><a href="[% homepage_esc %]">[% homepage_esc %]</a></td>
 </tr>
 </table>
-<!--
-TODO : Get rid of this hot-linking. It's temporary to see if it works.
--->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#tabs").tabs();
+  });
+</script>
 
 <div id="tabs">
 

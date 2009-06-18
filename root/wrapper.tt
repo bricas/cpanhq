@@ -7,15 +7,10 @@
 <!-- Prevent the hot-linking as well as the fact these header elements appear
 on all pages 
 -->
-<link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet">
+<link type="text/css" href="[% c.uri_for( '/static/jqueryui/themes/base/ui.all.css' ) %]" rel="stylesheet">
 <script type="text/javascript" src="[% c.uri_for( '/static/js/jquery.js') %]"></script>
-<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
-<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.tabs.js"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("#tabs").tabs();
-  });
-</script>
+<script type="text/javascript" src="[% c.uri_for( '/static/jqueryui/ui.core.js' ) %]"></script>
+<script type="text/javascript" src="[% c.uri_for( '/static/jqueryui/ui.tabs.js' ) %]"></script>
 </head>
 <body>
 <div id=wrapper>
