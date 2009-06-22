@@ -26,9 +26,10 @@
 </table>
 
 <script type="text/javascript">
-  $(document).ready(function(){
+$(document).ready(function(){
     $("#tabs").tabs();
-  });
+    $("#author_distros").tablesorter();
+});
 </script>
 
 <div id="tabs">
@@ -57,9 +58,11 @@ current version, etc.
 TODO : make the distribution table sortable by more fields. (using either
 JavaScript, HTTP parameters or both)
 -->
+
+
 <div id="tabs-2">
 [% distros = author.distributions_rs %]
-<table class="distributions">
+<table id="author_distros" class="distributions tablesorter">
 <thead>
 <tr>
 <th scope="col">Name</th>

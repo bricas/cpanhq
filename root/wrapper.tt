@@ -8,9 +8,11 @@
 on all pages 
 -->
 <link type="text/css" href="[% c.uri_for( '/static/jqueryui/themes/base/ui.all.css' ) %]" rel="stylesheet">
+<link type="text/css" href="[% c.uri_for( '/static/css/table-sorter/style.css' ) %]" rel="stylesheet">
 <script type="text/javascript" src="[% c.uri_for( '/static/js/jquery.js') %]"></script>
 <script type="text/javascript" src="[% c.uri_for( '/static/jqueryui/ui.core.js' ) %]"></script>
 <script type="text/javascript" src="[% c.uri_for( '/static/jqueryui/ui.tabs.js' ) %]"></script>
+<script type="text/javascript" src="[% c.uri_for( '/static/js/jquery.tablesorter.min.js') %]"></script> 
 </head>
 <body>
 <div id=wrapper>
