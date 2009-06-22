@@ -156,9 +156,15 @@ table.info, table.distributions {
     border-collapse: collapse;
 }
 
-table.info td, table.distributions td {
+table.info td, table.distributions td, table.distributions th {
     border: black thin solid;
     padding: 0.3em;
+}
+
+table.distributions th {
+    text-align: left;
+    border : black medium solid;
+    background-color: #9CE;
 }
 
 .info .key {

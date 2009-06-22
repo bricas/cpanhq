@@ -60,6 +60,14 @@ JavaScript, HTTP parameters or both)
 <div id="tabs-2">
 [% distros = author.distributions_rs %]
 <table class="distributions">
+<thead>
+<tr>
+<th scope="col">Name</th>
+<th scope="col">Version</th>
+<th scope="col">Released</th>
+</tr>
+</thead>
+<tbody>
 [% WHILE( dist = distros.next ) %]
 <tr>
 <td class="dist">
@@ -73,6 +81,7 @@ JavaScript, HTTP parameters or both)
 </td>
 </tr>
 [% END %]
+</tbody>
 </table>
 </div>
 
