@@ -65,6 +65,12 @@ JavaScript, HTTP parameters or both)
 <td class="dist">
 <a href="[% c.uri_for( '/dist', dist.get_column('dist_name') ) %]">[% dist.get_column('dist_name') %]</a>
 </td>
+<td class="ver">
+[% dist.get_column('version') %]
+</td>
+<td class="date">
+[% dist.get_column('date') %]
+</td>
 </tr>
 [% END %]
 </table>
