@@ -54,8 +54,9 @@ sub distributions_rs {
 
     my $ret =
         $self
-            ->related_resultset('releases')
-            ->search(undef,
+            ->search_related(
+                'releases',
+                {},
                 {
                     'select' => [
                         qw/me.id distribution_id distribution.name 
@@ -67,7 +68,7 @@ sub distributions_rs {
                     join => 'distribution',
                     group_by => 'distribution.id',
                     'order_by' => "distribution.name",
-                }
+                },
             )
             ;
 
