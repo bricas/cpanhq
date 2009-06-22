@@ -58,12 +58,12 @@ TODO : make the distribution table sortable by more fields. (using either
 JavaScript, HTTP parameters or both)
 -->
 <div id="tabs-2">
-[% distros = author.distributions %]
+[% distros = author.distributions_rs %]
 <table class="distributions">
 [% WHILE( dist = distros.next ) %]
 <tr>
 <td class="dist">
-<a href="[% c.uri_for( '/dist', dist.name ) %]">[% dist.name %]</a>
+<a href="[% c.uri_for( '/dist', dist.get_column('dist_name') ) %]">[% dist.get_column('dist_name') %]</a>
 </td>
 </tr>
 [% END %]

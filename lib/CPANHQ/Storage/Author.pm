@@ -49,22 +49,27 @@ sub display_name {
     return sprintf '%s <%s>', $self->name, $self->email;
 }
 
-sub distributions {
+sub distributions_rs {
     my $self = shift;
 
     my $ret =
         $self
             ->related_resultset('releases')
-            ->related_resultset('distribution')
             ->search(undef,
-                { 
-                    distinct => 1, 
-                    'select' => [qw/distribution.id distribution.name/], 
-                    'as' => [qw/id name/],
-                    order_by => 'name'
+                {
+                    'select' => [
+                        qw/me.id distribution_id distribution.name 
+                        version MAX(release_date)/
+                    ],
+                    'as' => [qw(release_id dist_id dist_name
+                        version date)
+                    ],
+                    join => 'distribution',
+                    group_by => 'distribution.id',
+                    'order_by' => "distribution.name",
                 }
             )
-        ;
+            ;
 
     return $ret;
 }
