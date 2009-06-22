@@ -74,7 +74,7 @@ JavaScript, HTTP parameters or both)
 [% WHILE( dist = distros.next ) %]
 <tr>
 <td class="dist">
-<a href="[% c.uri_for( '/dist', dist.get_column('dist_name') ) %]">[% dist.get_column('dist_name') %]</a>
+<a href="[% c.uri_for( '/dist', dist.get_column('dist_name') ) _ '/' %]">[% dist.get_column('dist_name') %]</a>
 </td>
 <td class="ver">
 [% dist.get_column('version') %]
