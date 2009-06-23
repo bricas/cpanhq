@@ -8,7 +8,7 @@ use warnings;
 CPANHQ::Storage::Release - a class representing a CPANHQ release
 
 =head1 SYNOPSIS
-      
+
     my $schema = CPANHQ->model("DB");
 
     my $releases_rs = $schema->resultset('Release');
@@ -93,6 +93,11 @@ __PACKAGE__->add_columns(
         data_type   => 'datetime',
         is_nullable => 0,
     },
+    meta_yml_was_procd => {
+        data_type => 'boolean',
+        default_value => 0,
+        is_nullable => 0,
+    },
     abstract => {
         data_type   => 'varchar',
         size        => 512,
@@ -148,7 +153,7 @@ sub _get_meta_yml {
     my $self = shift;
 
     my %config = CPAN::Mini->read_config;
-    my $minicpan_path = 
+    my $minicpan_path =
         $config{'local'}
         ;
 
@@ -206,7 +211,13 @@ appropriate fields in the database.
 sub _process_meta_yml {
     my $self = shift;
 
+    if ($self->meta_yml_was_procd() ) {
+        return;
+    }
+
     my $meta_yml = $self->_get_meta_yml();
+
+    $self->meta_yml_was_procd(1);
 
     if (my $license = $meta_yml->{'license'}) {
         $self->license(
@@ -238,6 +249,10 @@ sub _process_meta_yml {
             }
         }
     }
+
+    $self->update();
+
+    return;
 }
 
 =head1 SEE ALSO
@@ -249,7 +264,7 @@ L<CPANHQ::Storage>, L<CPANHQ>, L<DBIx::Class>
 Brian Cassidy E<lt>bricas@cpan.orgE<gt>
 
 Shlomi Fish L<http://www.shlomifish.org/> (who places all his contributions
-and modifications under the public domain - 
+and modifications under the public domain -
 L<http://creativecommons.org/license/zero> )
 
 =head1 LICENSE
