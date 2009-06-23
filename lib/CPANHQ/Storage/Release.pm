@@ -3,6 +3,40 @@ package CPANHQ::Storage::Release;
 use strict;
 use warnings;
 
+=head1 NAME
+
+CPANHQ::Storage::Release - a class representing a CPANHQ release
+
+=head1 SYNOPSIS
+      
+    my $schema = CPANHQ->model("DB");
+
+    my $releases_rs = $schema->resultset('Release');
+
+    my $module_build_release = $releases_rs->find({
+        distribution_id => $schema->resultset('Distribution')->find(
+            {
+                name => "Module-Build",
+            })->id(),
+        version => "0.33",
+    );
+
+    # Prints "Module-Build"
+    print $module_build_release->distribution()->name();
+
+    print $module_build_release->release_date();
+
+    # Prints "EWILHELM"
+    print $module_build_release->author()->cpanid();
+
+=head1 DESCRIPTION
+
+This is the release schema class for L<CPANHQ>.
+
+=head1 METHODS
+
+=cut
+
 use base qw( DBIx::Class );
 
 use File::Spec;
@@ -70,10 +104,24 @@ __PACKAGE__->belongs_to( author => 'CPANHQ::Storage::Author', 'author_id' );
 __PACKAGE__->belongs_to( license => 'CPANHQ::Storage::License', 'license_id' );
 __PACKAGE__->add_unique_constraint( [ qw( distribution_id version ) ] );
 
+=head2 $release->name()
+
+Returns the distribution name and version.
+
+=cut
+
 sub name {
     my $self = shift;
     return join( ' ', $self->distribution->name, $self->version || '' );
 }
+
+=head2 $release->_get_meta_yml()
+
+Reads the META.yml associated with this release and returns it.
+
+May throw an exception.
+
+=cut
 
 sub _get_meta_yml {
     my $self = shift;
@@ -127,6 +175,13 @@ sub _get_meta_yml {
     return $yaml;
 }
 
+=head2 $self->_process_meta_yml()
+
+Processes the META.yml (as returned by _get_meta_yml() ) and fills the
+appropriate fields in the database.
+
+=cut
+
 sub _process_meta_yml {
     my $self = shift;
 
@@ -142,5 +197,24 @@ sub _process_meta_yml {
         );
     }
 }
+
+=head1 SEE ALSO
+
+L<CPANHQ>, L<Rose::HTML::Form>, L<Catalyst>
+
+=head1 AUTHOR
+
+Brian Cassidy E<lt>bricas@cpan.orgE<gt>
+
+Shlomi Fish L<http://www.shlomifish.org/> (who places all his contributions
+and modifications under the public domain - 
+L<http://creativecommons.org/license/zero> )
+
+=head1 LICENSE
+
+This library is free software, you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
 
 1;
