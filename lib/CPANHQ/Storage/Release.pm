@@ -93,7 +93,13 @@ __PACKAGE__->add_columns(
         data_type   => 'datetime',
         is_nullable => 0,
     },
+    abstract => {
+        data_type   => 'varchar',
+        size        => 512,
+        is_nullable => 1,
+    },
 );
+
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->resultset_attributes( { order_by => [ 'release_date DESC' ] } );
 __PACKAGE__->belongs_to(
@@ -195,6 +201,10 @@ sub _process_meta_yml {
                 }
             )
         );
+    }
+
+    if (defined(my $abstract = $meta_yml->{'abstract'})) {
+        $self->abstract($abstract);
     }
 }
 

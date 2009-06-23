@@ -3,6 +3,9 @@
 [% license = release.license %]
 <ul>
 <li>
+<b>Abstract:</b> [% HTML.escape(release.abstract) %]
+</li>
+<li>
 <b>License:</b> 
 <a href="[% HTML.escape(license.url) %]">[% HTML.escape(license.name) %]</a>
 </li>
