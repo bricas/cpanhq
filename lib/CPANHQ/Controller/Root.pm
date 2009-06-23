@@ -28,6 +28,12 @@ sub index :Path :Args(0) {
     return;
 }
 
+=head2 $self->default($c, @path)
+
+The default handler for paths.
+
+=cut
+
 sub default :Path {
     my ( $self, $c, @args ) = @_;
 
@@ -42,6 +48,12 @@ sub default :Path {
    
 }
 
+=head2 $self->recent($c)
+
+Handles the recent releases.
+
+=cut
+
 sub recent :Path('recent') {
     my ( $self, $c ) = @_;
     $c->stash->{ releases } = $c->model( 'DB::Release' )->search( {}, { rows => 50 } );
@@ -54,6 +66,12 @@ Attempt to render a view, if needed.
 =cut 
 
 sub end : ActionClass('RenderView') {}
+
+=head2 $self->access_denied($c, $action)
+
+Returns an access denied page.
+
+=cut
 
 sub access_denied : Private {
     my( $self, $c, $action ) = @_;
