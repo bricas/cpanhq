@@ -14,8 +14,11 @@ Catalyst Controller.
 
 =head1 METHODS
 
-=cut
+=head2 $self->show($c, $cpanid)
 
+The L<Catalyst> show() method.
+
+=cut
 
 sub show :Path :Args(1) {
     my ( $self, $c, $cpanid ) = @_;
