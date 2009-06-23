@@ -7,6 +7,7 @@ use base qw( DBIx::Class );
 
 use File::Spec;
 use List::Util qw(first);
+use File::Temp qw(tempdir);
 
 use CPAN::Mini;
 use Archive::Extract;
@@ -97,9 +98,8 @@ sub _get_meta_yml {
 
     my $ae = Archive::Extract->new( archive => $arc_path );
 
-    my $to_path = File::Spec->catdir(
-        ($ENV{TMPDIR} || "/tmp"), "CPANHQ-Archive-Extract"
-    );
+    my $to_path = tempdir();
+
     my $ok = $ae->extract( to => $to_path )
         or die $ae->error();
 
