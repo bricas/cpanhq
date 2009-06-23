@@ -68,6 +68,12 @@ CPANHQ - Perl from the trenches
 
 [enter your description here]
 
+=head1 METHODS
+
+=head2 $self->form($name, @args)
+
+Filter args for form components.
+
 =head1 SEE ALSO
 
 L<CPANHQ::Controller::Root>, L<Catalyst>
