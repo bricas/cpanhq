@@ -5,6 +5,33 @@ use warnings;
 
 use base qw( DBIx::Class );
 
+
+=head1 NAME
+
+CPANHQ::Storage::Distribution - a class representing a CPANHQ CPAN distribution
+
+=head1 SYNOPSIS
+      
+    my $schema = CPANHQ->model("DB");
+
+    my $releases_rs = $schema->resultset('Distribution');
+
+    my $module_build = $distributions_rs->find({
+            {
+                name => "Module-Build",
+            })->id(),
+    );
+
+    my $release = $module_build->latest_release();
+
+=head1 DESCRIPTION
+
+This is the distribution schema class for L<CPANHQ>.
+
+=head1 METHODS
+
+=cut
+
 __PACKAGE__->load_components( qw( Core ) );
 __PACKAGE__->table( 'distribution' );
 __PACKAGE__->add_columns(
@@ -31,8 +58,33 @@ __PACKAGE__->many_to_many(
 );
 __PACKAGE__->add_unique_constraint( [ 'name' ] );
 
+=head2 $self->latest_release()
+
+Returns the latest release.
+
+=cut
+
 sub latest_release {
     return shift->releases->first;
 }
+
+=head1 SEE ALSO
+
+L<CPANHQ::Storage>, L<CPANHQ>, L<DBIx::Class>
+
+=head1 AUTHOR
+
+Brian Cassidy E<lt>bricas@cpan.orgE<gt>
+
+Shlomi Fish L<http://www.shlomifish.org/> (who places all his contributions
+and modifications under the public domain - 
+L<http://creativecommons.org/license/zero> )
+
+=head1 LICENSE
+
+This library is free software, you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
 
 1;
