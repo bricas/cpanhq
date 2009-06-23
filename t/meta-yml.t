@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 use Catalyst::Test 'CPANHQ';
 
@@ -40,5 +40,11 @@ use CPANHQ::Storage;
     is ($meta_yml->{'abstract'}, "verify solutions for solitaire games.",
         "Abstract of META.yml is OK."
     );
+
+    # TEST
+    is ($meta_yml->{'license'}, "mit",
+        "License of META.yml is OK."
+    );
+
 }
 
