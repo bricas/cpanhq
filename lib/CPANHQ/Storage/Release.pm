@@ -6,8 +6,11 @@ use warnings;
 use base qw( DBIx::Class );
 
 use File::Spec;
+use List::Util qw(first);
 
 use CPAN::Mini;
+use Archive::Extract;
+use Parse::CPAN::Meta;
 
 __PACKAGE__->load_components( qw( InflateColumn::DateTime Core ) );
 __PACKAGE__->table( 'release' );
@@ -92,7 +95,30 @@ sub _get_meta_yml {
         die "Archive path '$arc_path' not found";
     }
 
-    return 1;
+    my $ae = Archive::Extract->new( archive => $arc_path );
+
+    my $to_path = File::Spec->catdir(
+        ($ENV{TMPDIR} || "/tmp"), "CPANHQ-Archive-Extract"
+    );
+    my $ok = $ae->extract( to => $to_path )
+        or die $ae->error();
+
+    my $files = $ae->files();
+
+    my $meta_yml_file = first { m{META\.yml\z}i } @$files;
+
+    if (!defined ($meta_yml_file))
+    {
+        die "Could not find META.yml in archive '$arc_path'";
+    }
+
+    my $meta_yml_full_path = File::Spec->catfile(
+        $to_path, $meta_yml_file
+    );
+
+    my @yaml = Parse::CPAN::Meta::LoadFile($meta_yml_full_path);
+
+    return $yaml[0];
 }
 
 1;
