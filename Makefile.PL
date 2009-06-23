@@ -21,6 +21,12 @@ requires 'LWPx::ParanoidAgent';
 requires 'Rose::HTML::Form';
 requires 'DBIx::Class';
 requires 'DBIx::Class::TimeStamp';
+requires 'YAML::XS';
+requires 'File::Spec';
+requires 'File::Temp';
+requires 'List::Util';
+requires 'CPAN::Mini';
+requires 'Archive::Extract';
 
 # for twitter feed
 requires 'XML::RSS';
