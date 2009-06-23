@@ -200,7 +200,7 @@ sub _process_meta_yml {
 
 =head1 SEE ALSO
 
-L<CPANHQ>, L<Rose::HTML::Form>, L<Catalyst>
+L<CPANHQ::Storage>, L<CPANHQ>, L<DBIx::Class>
 
 =head1 AUTHOR
 
