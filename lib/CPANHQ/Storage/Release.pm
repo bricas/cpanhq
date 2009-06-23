@@ -11,7 +11,7 @@ use File::Temp qw(tempdir);
 
 use CPAN::Mini;
 use Archive::Extract;
-use Parse::CPAN::Meta;
+use YAML::XS;
 
 __PACKAGE__->load_components( qw( InflateColumn::DateTime Core ) );
 __PACKAGE__->table( 'release' );
@@ -122,9 +122,9 @@ sub _get_meta_yml {
         $to_path, $meta_yml_file
     );
 
-    my @yaml = Parse::CPAN::Meta::LoadFile($meta_yml_full_path);
+    my ($yaml) = YAML::XS::LoadFile($meta_yml_full_path);
 
-    return $yaml[0];
+    return $yaml;
 }
 
 sub _process_meta_yml {
