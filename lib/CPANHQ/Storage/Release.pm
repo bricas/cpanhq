@@ -26,6 +26,11 @@ __PACKAGE__->add_columns(
         is_nullable    => 0,
         is_foreign_key => 1,
     },
+    license_id => {
+        data_type      => 'bigint',
+        is_nullable    => 1,
+        is_foreign_key => 1,
+    },
     version => {
         data_type   => 'varchar',
         size        => 32,
@@ -62,6 +67,7 @@ __PACKAGE__->belongs_to(
     'distribution_id'
 );
 __PACKAGE__->belongs_to( author => 'CPANHQ::Storage::Author', 'author_id' );
+__PACKAGE__->belongs_to( license => 'CPANHQ::Storage::License', 'license_id' );
 __PACKAGE__->add_unique_constraint( [ qw( distribution_id version ) ] );
 
 sub name {
@@ -119,6 +125,22 @@ sub _get_meta_yml {
     my @yaml = Parse::CPAN::Meta::LoadFile($meta_yml_full_path);
 
     return $yaml[0];
+}
+
+sub _process_meta_yml {
+    my $self = shift;
+
+    my $meta_yml = $self->_get_meta_yml();
+
+    if (my $license = $meta_yml->{'license'}) {
+        $self->license(
+            $self->result_source->schema->resultset('License')->find(
+                {
+                    string_id => $license,
+                }
+            )
+        );
+    }
 }
 
 1;

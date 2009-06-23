@@ -46,5 +46,7 @@ use CPANHQ::Storage;
         "License of META.yml is OK."
     );
 
+    $rec1->_process_meta_yml();
+
 }
 
