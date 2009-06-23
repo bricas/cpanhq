@@ -6,9 +6,19 @@
 <b>Abstract:</b> [% HTML.escape(release.abstract) %]
 </li>
 <li>
+<a href="[% HTML.escape(release.homepage) %]" rel="nofollow"><b>Homepage</b></a>
+</li>
+<li>
 <b>License:</b> 
 <a href="[% HTML.escape(license.url) %]">[% HTML.escape(license.name) %]</a>
 </li>
+<li>
+<a href="[% HTML.escape(release.mailing_list) %]" rel="nofollow"><b>Mailing List</b></a>
+</li>
+<li>
+<a href="[% HTML.escape(release.vcs_repository) %]" rel="nofollow"><b>Version Control Repository</b></a>
+</li>
 </ul>
+
 [% author = release.author %]
 <p>By <a href="[% c.uri_for( '/author', author.cpanid ) %]">[% author.name %]</a>, released on [% release.release_date.ymd %]</p>

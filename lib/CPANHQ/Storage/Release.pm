@@ -98,6 +98,21 @@ __PACKAGE__->add_columns(
         size        => 512,
         is_nullable => 1,
     },
+    homepage => {
+        data_type   => 'varchar',
+        size        => 512,
+        is_nullable => 1,
+    },
+    mailing_list => {
+        data_type   => 'varchar',
+        size        => 512,
+        is_nullable => 1,
+    },
+    vcs_repository => {
+        data_type   => 'varchar',
+        size        => 1024,
+        is_nullable => 1,
+    },
 );
 
 __PACKAGE__->set_primary_key( qw( id ) );
@@ -205,6 +220,23 @@ sub _process_meta_yml {
 
     if (defined(my $abstract = $meta_yml->{'abstract'})) {
         $self->abstract($abstract);
+    }
+
+    if (defined(my $resources = $meta_yml->{'resources'}))
+    {
+        my %res_to_db =
+        (
+            homepage => "homepage",
+            MailingList => "mailing_list",
+            repository => "vcs_repository",
+        );
+
+        while (my ($res, $db_key) = each(%res_to_db))
+        {
+            if (defined(my $res_val = $resources->{$res})) {
+                $self->$db_key($res_val);
+            }
+        }
     }
 }
 
