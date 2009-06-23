@@ -1,3 +1,11 @@
+[%- USE HTML -%]
 <h2>[% release.name %]</h2>
+[% license = release.license %]
+<ul>
+<li>
+<b>License:</b> 
+<a href="[% HTML.escape(license.url) %]">[% HTML.escape(license.name) %]</a>
+</li>
+</ul>
 [% author = release.author %]
 <p>By <a href="[% c.uri_for( '/author', author.cpanid ) %]">[% author.name %]</a>, released on [% release.release_date.ymd %]</p>

@@ -47,6 +47,7 @@ sub show :Chained(instance) :PathPart('') :Args(0) {
     my( $self, $c ) = @_;
     my $dist = $c->stash->{ dist };
     my $latest = $dist->latest_release;
+    $latest->_process_meta_yml();
     $c->stash( release => $latest, title => $latest->name );
 }
 
@@ -66,6 +67,8 @@ sub version :Chained(instance) :PathPart('') :Args(1) {
         $c->res->body( $dist->name . " version '$version' not found." );
         $c->detach;
     }
+
+    $release->_process_meta_yml();
 
     $c->stash( release => $release, title => $release->name );
 }
