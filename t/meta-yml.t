@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 3;
+use Test::More tests => 4;
 
 use Catalyst::Test 'CPANHQ';
 
@@ -30,5 +30,10 @@ use CPANHQ::Storage;
 
     # TEST
     ok ($rec1, "Record1 is OK.");
+
+    my $meta_yml = $rec1->_get_meta_yml();
+
+    # TEST
+    ok ($meta_yml, "META.yml of Games-Solitaire-Verify is OK.");
 }
 
