@@ -17,6 +17,11 @@ Catalyst Controller.
 
 =head1 METHODS
 
+=head2 $self->instance($c, $distname)
+
+Initialises an instance of the distname distribution upon accessing
+C</dist/MyDistro-On-CPAN/> .
+
 =cut
 
 sub instance :Chained('/') :PathPart(dist) :CaptureArgs(1) {
@@ -32,12 +37,24 @@ sub instance :Chained('/') :PathPart(dist) :CaptureArgs(1) {
     $c->stash( dist => $dist );
 }
 
+=head2 $self->show($c)
+
+The L<Catalyst> show method.
+
+=cut
+
 sub show :Chained(instance) :PathPart('') :Args(0) {
     my( $self, $c ) = @_;
     my $dist = $c->stash->{ dist };
     my $latest = $dist->latest_release;
     $c->stash( release => $latest, title => $latest->name );
 }
+
+=head2 $self->version($c, $version)
+
+Handles the distribution of version $version.
+
+=cut
 
 sub version :Chained(instance) :PathPart('') :Args(1) {
     my( $self, $c, $version ) = @_;
