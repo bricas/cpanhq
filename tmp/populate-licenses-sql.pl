@@ -43,11 +43,18 @@ my @licenses =
 
 my $license_rs = CPANHQ->model('DB::License');
 
+LICENSES_LOOP:
 foreach my $l (@licenses)
 {
     eval "require $l";
 
     print "Inserting $l\n";
+
+    if (!defined($l->meta_name()))
+    {
+        print "Skipping $l\n";
+        next LICENSES_LOOP;
+    }
 
     $license_rs->find_or_create({
         string_id => $l->meta_name(),
