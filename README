@@ -18,5 +18,9 @@ To get the tests running do this:
 
 Where /path/to/my/minicpan is the path to your minicpan mirror.
 
-7. Run "make test".
+7. Run "perl tmp/populate-licenses-sql.pl"
+
+8. Run "perl tmp/gen-twitter-feed.pl"
+
+9. Run "make test".
 
