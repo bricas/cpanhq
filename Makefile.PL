@@ -32,6 +32,23 @@ requires 'YAML::XS';
 requires 'XML::RSS';
 requires 'LWP::Simple';
 
+homepage "http://github.com/bricas/cpanhq/tree/master";
+bugtracker "http://github.com/bricas/cpanhq/issues";
+repository "http://github.com/bricas/cpanhq/tree/master";
+keywords(
+    "catalyst",
+    "community",
+    "cpan",
+    "cpanhq",
+    "indexing",
+    "modules",
+    "perl",
+    "search",
+    "social",
+    "social-web",
+    "webapp",
+    "web-interface",
+);
 catalyst;
 
 install_script glob('script/*.pl');
