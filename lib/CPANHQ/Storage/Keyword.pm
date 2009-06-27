@@ -47,9 +47,10 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->resultset_attributes( { order_by => [ 'string_id' ] } );
 __PACKAGE__->add_unique_constraint( [ 'string_id' ] );
-# __PACKAGE__->has_many(
-#     releases => 'CPANHQ::Storage::Release', 'license_id'
-# );
+__PACKAGE__->has_many(
+    author_distros => 'CPANHQ::Storage::AuthorDistributionKeyword',
+    'keyword_id'
+);
 
 =head1 SEE ALSO
 
