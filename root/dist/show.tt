@@ -18,6 +18,16 @@
 <li>
 <a href="[% HTML.escape(release.vcs_repository) %]" rel="nofollow"><b>Version Control Repository</b></a>
 </li>
+<li>
+<b>Tags:</b>
+[% # TODO : Get rid of the last trailing comma ",".
+   # TODO : make it more DBIx-Class-y.
+%]
+[% FOREACH tag_proto = release.distribution.author_keywords %]
+[%- tag = tag_proto.keyword.string_id -%]
+<a href="[% HTML.escape(c.uri_for("tag", tag)) %]">[% HTML.escape(tag) %]</a>,
+[% END %]
+</li>
 </ul>
 
 [% author = release.author %]
