@@ -1,0 +1,7 @@
+[%- USE HTML -%]
+<h2>Package [% HTML.escape(package.name()) %]</h2>
+
+<p>
+Belongs to: <a href="[% c.uri_for ('/dist', dist.name) %]">[% dist.name %]</a>
+</p>
+
