@@ -32,3 +32,13 @@
 
 [% author = release.author %]
 <p>By <a href="[% c.uri_for( '/author', author.cpanid ) %]">[% author.name %]</a>, released on [% release.release_date.ymd %]</p>
+
+<h3 id="packages">Packages</h3>
+
+<ul>
+[% FOREACH pack = release.distribution.packages %]
+<li>
+<a href="[% c.uri_for( '/package', pack.name) %]">[% HTML.escape(pack.name) %]</a>
+</li>
+[% END %]
+</ul>
