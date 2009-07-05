@@ -63,6 +63,11 @@ __PACKAGE__->has_many(
     'distribution_id'
 );
 
+__PACKAGE__->has_many(
+    packages => 'CPANHQ::Storage::Package',
+    'distribution_id'
+);
+
 =head2 $self->latest_release()
 
 Returns the latest release.
