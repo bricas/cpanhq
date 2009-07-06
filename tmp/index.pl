@@ -64,7 +64,7 @@ if ($scan_packages)
 
 sub scan_releases
 {
-    my $file_it = File::Next::files( $cpan_base->subdir( qw( authors id ) ) );
+    my $file_it = File::Next::files( { follow_symlinks => 0 }, $cpan_base->subdir( qw( authors id ) ) );
 
     print "Scanning Files...\n";
     my $count = 0;
