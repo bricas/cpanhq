@@ -58,6 +58,16 @@ __PACKAGE__->many_to_many(
 );
 __PACKAGE__->add_unique_constraint( [ 'name' ] );
 
+__PACKAGE__->has_many(
+    author_keywords => 'CPANHQ::Storage::AuthorDistributionKeyword',
+    'distribution_id'
+);
+
+__PACKAGE__->has_many(
+    packages => 'CPANHQ::Storage::Package',
+    'distribution_id'
+);
+
 =head2 $self->latest_release()
 
 Returns the latest release.

@@ -250,6 +250,24 @@ sub _process_meta_yml {
         }
     }
 
+    if (defined(my $keywords = $meta_yml->{'keywords'})) {
+        # Doing it in a pretty dumb and not-so-DBIx-Class-y way now
+        # until I figure out a better way to do it, if one exists.
+        # TODO : Delete all the previous author-tags.
+        foreach my $tag_string (@$keywords)
+        {
+            my $tag = $self->result_source->schema->resultset('Keyword')
+                           ->find_or_create({string_id => $tag_string})
+                           ;
+            
+            $self->result_source->schema
+                ->resultset('AuthorDistributionKeyword')
+                ->new({distribution => $self->distribution(), keyword => $tag})
+                ->insert()
+                ;
+        }
+    }
+
     $self->update();
 
     return;

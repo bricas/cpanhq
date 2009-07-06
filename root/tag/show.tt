@@ -1,0 +1,14 @@
+[%- USE HTML -%]
+<h2>Tag [% HTML.escape(tag.string_id()) %]</h2>
+
+<p>
+Found distributions:
+</p>
+
+<ul>
+[% WHILE ( dist = distros.next ) %]
+<li>
+<a href="[% c.uri_for ('/dist', dist.name) %]">[% dist.name %]</a>
+</li>
+[% END %]
+</ul>
