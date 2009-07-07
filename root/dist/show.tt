@@ -6,7 +6,8 @@
 <b>Abstract:</b> [% HTML.escape(release.abstract) %]
 </li>
 <li>
-<a href="[% HTML.escape(release.homepage) %]" rel="nofollow"><b>Homepage</b></a>
+<a href="[% HTML.escape(release.homepage) %]" rel="nofollow"><b>Homepage</b></a>, 
+<a href="http://wiki.catalyzed.org/cpan-modules/[% release.distribution.name %]" rel="nofollow"><b>Wiki</b></a>
 </li>
 <li>
 <b>License:</b> 
