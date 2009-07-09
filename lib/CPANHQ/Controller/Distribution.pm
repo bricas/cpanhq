@@ -50,22 +50,24 @@ sub show : Chained(instance) : PathPart('') : Args(0) {
     my $latest = $dist->latest_release;
     $latest->_process_meta_yml();
 
-    my $deps
-        = $c->model('DB::Requires')
-            ->search( { dist_from => $latest->distribution->id } );
-
     my $graph = Graph::Easy->new();
-    while ( my $dep = $deps->next ) {
+
+    my $uses = $dist->uses;
+    my $dist_uses;
+    while ( my $use = $uses->next ) {
+        my $name = $use->dist_to->name;
+        push @$dist_uses, $name;
         $graph->add_edge(
             $latest->distribution->name,
-            $dep->dist_to->distribution->name
+            $name,
         );
     }
     my $graph_output = $graph->as_ascii();
     $c->stash(
         release => $latest,
         title   => $latest->name,
-        graph   => $graph_output
+        graph   => $graph_output,
+        uses    => $dist_uses,
     );
 }
 
