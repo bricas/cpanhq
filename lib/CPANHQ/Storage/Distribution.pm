@@ -67,6 +67,14 @@ __PACKAGE__->has_many(
     packages => 'CPANHQ::Storage::Package',
     'distribution_id'
 );
+__PACKAGE__->has_many(
+    uses => 'CPANHQ::Storage::Requires',
+    'dist_from'
+);
+__PACKAGE__->has_many(
+    used_by => 'CPANHQ::Storage::Requires',
+    'dist_to'
+);
 
 =head2 $self->latest_release()
 

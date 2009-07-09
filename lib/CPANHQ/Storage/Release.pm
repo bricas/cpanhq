@@ -129,8 +129,6 @@ __PACKAGE__->belongs_to(
 __PACKAGE__->belongs_to( author => 'CPANHQ::Storage::Author', 'author_id' );
 __PACKAGE__->belongs_to( license => 'CPANHQ::Storage::License', 'license_id' );
 __PACKAGE__->add_unique_constraint( [ qw( distribution_id version ) ] );
-__PACKAGE__->has_many( req_from => 'CPANHQ::Storage::Requires', 'dist_from');
-__PACKAGE__->has_many( req_to   => 'CPANHQ::Storage::Requires', 'dist_to' );
 
 
 =head2 $release->name()
