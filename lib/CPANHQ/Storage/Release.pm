@@ -278,7 +278,6 @@ sub _process_meta_yml {
             $self->result_source->schema->resultset('Distribution')
                 ->find( { name => $dep_name } );
             next unless $dep;
-            warn "on est ici avec $dep_name";
             $self->result_source->schema->resultset('Requires')
                 ->new( { dist_from => $self->distribution->id, dist_to => $dep->id, } )
                 ->insert;
