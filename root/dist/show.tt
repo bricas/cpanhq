@@ -31,8 +31,14 @@
 [% author = release.author %]
 <p>By <a href="[% c.uri_for( '/author', author.cpanid ) %]">[% author.name %]</a>, released on [% release.release_date.ymd %]</p>
 
-<h3 id="packages">Packages</h3>
+[% IF graph %] 
+<h3 id="graph">Graph</h3>
+<pre> 
+[% graph %] 
+</pre>
+[% END %]
 
+<h3 id="packages">Packages</h3>
 <ul>
 [% FOREACH pack = release.distribution.packages %]
 <li>
