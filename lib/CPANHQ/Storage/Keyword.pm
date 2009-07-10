@@ -5,7 +5,7 @@ use warnings;
 
 =head1 NAME
 
-CPANHQ::Storage::Keyword - a class representing a CPAN license
+CPANHQ::Storage::Keyword - a class representing a CPAN keyword
 
 =head1 SYNOPSIS
       

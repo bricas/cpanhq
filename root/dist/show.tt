@@ -33,9 +33,10 @@
 
 [% IF graph %] 
 <h3 id="graph">Graph</h3>
-<pre> 
+<pre>
 [% graph %] 
 </pre>
+
 [% END %]
 
 <h3 id="packages">Packages</h3>
@@ -43,6 +44,15 @@
 [% FOREACH pack = release.distribution.packages %]
 <li>
 <a href="[% c.uri_for( '/package', pack.name) %]">[% HTML.escape(pack.name) %]</a>
+</li>
+[% END %]
+</ul>
+
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+[% FOREACH dep = uses %]
+<li>
+<a href="[% c.uri_for( '/dist', dep) %]">[% HTML.escape(dep) %]</a>
 </li>
 [% END %]
 </ul>
