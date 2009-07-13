@@ -31,13 +31,8 @@
 [% author = release.author %]
 <p>By <a href="[% c.uri_for( '/author', author.cpanid ) %]">[% author.name %]</a>, released on [% release.release_date.ymd %]</p>
 
-[% IF graph %] 
 <h3 id="graph">Graph</h3>
-<pre>
-[% graph %] 
-</pre>
-
-[% END %]
+<img src="/dist/graph/[% dist.name %].png" />
 
 <h3 id="packages">Packages</h3>
 <ul>
