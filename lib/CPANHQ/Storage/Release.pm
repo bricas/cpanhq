@@ -160,15 +160,11 @@ sub _get_meta_yml {
     my $fn_base = $self->distribution->name() . "-" . $self->version();
     my $author = $self->author->cpanid();
 
+    my $dist_path = $self->path();
     my $arc_path =
         File::Spec->catfile(
             $minicpan_path,
-            "authors",
-            "id",
-            substr($author, 0, 1),
-            substr($author, 0, 2),
-            $author,
-            $fn_base . ".tar.gz",
+            $dist_path,
         );
 
     if (! -e $arc_path)
