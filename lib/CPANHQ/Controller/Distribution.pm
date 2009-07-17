@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use parent 'Catalyst::Controller';
+use Graph::Easy;
 
 __PACKAGE__->config->{namespace} = 'dist';
 
@@ -43,12 +44,31 @@ The L<Catalyst> show method.
 
 =cut
 
-sub show :Chained(instance) :PathPart('') :Args(0) {
-    my( $self, $c ) = @_;
-    my $dist = $c->stash->{ dist };
+sub show : Chained(instance) : PathPart('') : Args(0) {
+    my ( $self, $c ) = @_;
+    my $dist   = $c->stash->{dist};
     my $latest = $dist->latest_release;
     $latest->_process_meta_yml();
-    $c->stash( release => $latest, title => $latest->name );
+
+    my $graph = Graph::Easy->new();
+
+    my $uses = $dist->uses;
+    my $dist_uses;
+    while ( my $use = $uses->next ) {
+        my $name = $use->dist_to->name;
+        push @$dist_uses, $name;
+        $graph->add_edge(
+            $latest->distribution->name,
+            $name,
+        );
+    }
+    my $graph_output = $graph->as_ascii();
+    $c->stash(
+        release => $latest,
+        title   => $latest->name,
+        graph   => $graph_output,
+        uses    => $dist_uses,
+    );
 }
 
 =head2 $self->version($c, $version)

@@ -130,6 +130,7 @@ __PACKAGE__->belongs_to( author => 'CPANHQ::Storage::Author', 'author_id' );
 __PACKAGE__->belongs_to( license => 'CPANHQ::Storage::License', 'license_id' );
 __PACKAGE__->add_unique_constraint( [ qw( distribution_id version ) ] );
 
+
 =head2 $release->name()
 
 Returns the distribution name and version.
@@ -264,6 +265,18 @@ sub _process_meta_yml {
         }
     }
 
+    if ( defined( my $deps = $meta_yml->{'requires'} ) ) {
+        foreach my $dep_name (keys %$deps) {
+            $dep_name =~ s/::/-/g;
+            my $dep =
+            $self->result_source->schema->resultset('Distribution')
+                ->find( { name => $dep_name } );
+            next unless $dep;
+            $self->result_source->schema->resultset('Requires')
+                ->new( { dist_from => $self->distribution->id, dist_to => $dep->id, } )
+                ->insert;
+        }
+    }
     $self->update();
 
     return;
