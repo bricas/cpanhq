@@ -14,7 +14,7 @@ keyword association
 
 =head1 DESCRIPTION
 
-This table/class associate distributions with keywords/labels/tags, if the
+This table/class associates distributions with keywords/labels/tags, if the
 authors added those keywords to their META.yml. See 'keywords' in the
 META.yml-Spec:
 
