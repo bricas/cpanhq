@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+[%- USE HTML -%]
 <html lang=en>
 <head>
 <meta charset=utf-8>
@@ -27,7 +28,7 @@ on all pages
 </ul>
 <p class="login">
 [% IF c.user_exists %]
-Logged in as [% c.user.display_name %] (<a href="[% c.uri_for('/logout') %]">Logout</a>)
+Logged in as [% HTML.escape(c.user.display) %] (<a href="[% c.uri_for('/logout') %]">Logout</a>)
 [% ELSE %]
 Not logged in (<a href="[% c.uri_for('/login') %]">Login</a>)
 [% END %]

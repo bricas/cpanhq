@@ -1,0 +1,32 @@
+name CPANHQ
+<Model::DB>
+    connect_info    dbi:SQLite:dbname=__HOME__/cpanhq.db
+    connect_info    undef
+</Model::DB>
+<Controller::Distribution>
+    graph_path     __HOME__/root/dist/graph/
+</Controller::Distribution>
+<Plugin::Authentication>
+    use_session 1
+    default_realm openid
+    <realms>
+        <openid>
+            <credential>
+                class OpenID
+                <extensions>
+                    "http://openid.net/extensions/sreg/1.1" 1
+                </extensions>
+                extension_args = "http://openid.net/extensions/sreg/1.1"
+                extension_args = required
+                #<extension_args>
+                #    required "email,timezone"
+                #    optional "fullname,nickname,timezone"
+                #</extension_args>
+                ua_class LWPx::ParanoidAgent
+            </credential>
+            <store>
+                class Null
+            </store>
+        </openid>
+    </realms>
+</Plugin::Authentication>

@@ -30,8 +30,8 @@ Builds the form.
 sub build_form {
     my $self = shift;
 
-    $self->add_fields( claimed_uri => { type => 'text', size => 40, required => 1 }, submit => { type => 'submit', value => 'Login' } );
-    $self->method( 'post' );
+    $self->add_fields( openid_identifier => { type => 'text', size => 40, required => 1 }, submit => { type => 'submit', value => 'Login' } );
+    $self->method( 'get' );
 
     return $self;
 }

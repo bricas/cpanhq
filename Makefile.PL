@@ -21,7 +21,7 @@ requires 'DBIx::Class';
 requires 'DBIx::Class::TimeStamp';
 requires 'File::Spec';
 requires 'File::Temp';
-requries 'Graph::Easy';
+requires 'Graph::Easy';
 requires 'List::Util';
 requires 'LWPx::ParanoidAgent';
 requires 'Net::OpenID::Consumer';

@@ -28,8 +28,12 @@ Login using OpenID.
 sub login : Path('/login') Args(0) {
     my ( $self, $c ) = @_;
     my $form = $c->form( 'Login' );
+    $form->action($c->uri_for('/authenticate/openid'));
     $c->stash( form => $form, title => 'Login' );
 
+    return;
+
+=begin Hello 
     return unless $form->was_submitted && $form->is_valid;
 
     my $consumer = Net::OpenID::Consumer->new(
@@ -46,6 +50,10 @@ sub login : Path('/login') Args(0) {
     );
 
     $c->res->redirect( $url );
+=end Hello
+
+=cut
+
 }
 
 =head2 $self->openid($c)
@@ -57,30 +65,23 @@ Login using OpenID.
 sub openid : Path('openid') Args(0) {
     my( $self, $c ) = @_;
 
-    if( !$c->req->params->{ 'openid.identity' } ) {
-        $c->res->redirect( $c->uri_for( '/login' ) );
-        return;
+    if ($c->authenticate({}, "openid"))
+    {
+        $c->persist_user();
+        $c->flash(message => "You signed in with OpenID!");
+        $c->res->redirect( $c->uri_for('/') );
     }
-
-    my $consumer = Net::OpenID::Consumer->new(
-        ua => LWPx::ParanoidAgent->new,
-        args => $c->req->params,
-        consumer_secret => sub { $_[0] },
-    );
-
-    if ( my $setup = $consumer->user_setup_url ) {
-        $c->res->redirect( $setup );
+    else
+    {
+        $c->flash(message => "Could not authenticate with OpenID");
+        $c->response->body( "Could not authenticate with OpenID" );        
+        # $c->flash(message => "Could not authenticate with OpenID");
+        # $c->response->body( "Could not authenticate with OpenID" );
+        # Catalyst::Exception->throw(
+        #    'Error validating identity: '
+        # );
     }
-    elsif ($consumer->user_cancel) {
-        $c->res->redirect( $c->uri_for( '/login' ) );
-    }
-    elsif ( my $identity = $consumer->verified_identity ) {
-        $c->authenticate( { enabled => 1, openid => $identity->url }, 'openid' );
-        $c->res->redirect( $c->uri_for( '/' ) );
-    }
-    else {
-        Catalyst::Exception->throw('Error validating identity: ' . $consumer->errtext);
-    }
+    return;
 }
 
 =head2 $self->logout($c)
