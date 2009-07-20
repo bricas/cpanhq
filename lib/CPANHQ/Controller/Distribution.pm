@@ -50,23 +50,29 @@ sub show : Chained(instance) : PathPart('') : Args(0) {
     my $latest = $dist->latest_release;
     $latest->_process_meta_yml();
 
-    my $graph = Graph::Easy->new();
+    my $graph        = Graph::Easy->new();
+    my $graph_output = File::Spec->catfile(
+        $c->config->{'Controller::Distribution'}->{graph_path},
+        $dist->name . '-' . $latest->version . '.png'
+    );
 
     my $uses = $dist->uses;
     my $dist_uses;
     while ( my $use = $uses->next ) {
         my $name = $use->dist_to->name;
         push @$dist_uses, $name;
-        $graph->add_edge(
-            $latest->distribution->name,
-            $name,
-        );
+        $graph->add_edge( $latest->distribution->name, $name, );
     }
-    my $graph_output = $graph->as_ascii();
+
+    if ( !-f $graph_output ) {
+        if ( open( my $png, '|-', 'dot -Tpng -o ' . $graph_output ) ) {
+            print $png $graph->as_graphviz;
+            close($png);
+        }
+    }
     $c->stash(
         release => $latest,
         title   => $latest->name,
-        graph   => $graph_output,
         uses    => $dist_uses,
     );
 }
