@@ -110,6 +110,14 @@ sub graph :Chained('release') :PathPart("graph.png") :Args(0) {
     return;
 }
 
+sub _preprocess_for_svg :Private {
+    my ($self, $c, $graphviz) = @_;
+
+    $graphviz =~ s{((?:URL|href)=")}{target="_top",$1}gms; 
+
+    return $graphviz;
+}
+
 sub svg_graph :Chained('release') :PathPart("graph.svg") :Args(0) {
     my ($self, $c) = @_;
 
@@ -124,9 +132,9 @@ sub svg_graph :Chained('release') :PathPart("graph.svg") :Args(0) {
     mkpath(dirname($graph_output));
 
     if ( !-f $graph_output ) {
-        if ( open( my $png, '|-', qw(dot -Tsvg -o), $graph_output ) ) {
-            print $png $graph->as_graphviz;
-            close($png);
+        if ( open( my $svg, '|-', qw(dot -Tsvg -o), $graph_output ) ) {
+            print {$svg} $self->_preprocess_for_svg($c, $graph->as_graphviz);
+            close($svg);
         }
     }
     
