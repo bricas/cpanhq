@@ -28,7 +28,7 @@ EOF
         my $desc = $tweet->{'description'};
         $desc =~ s{^cpanhq: }{};
         my $link = $tweet->{'link'};
-        print {$html_fh} qq{<li>$desc <span class="link">(<a href="$link>link</a>)</span></li>\n};
+        print {$html_fh} qq{<li>$desc <span class="link">(<a href="$link">link</a>)</span></li>\n};
     }
 
     print {$html_fh} <<'EOF';
