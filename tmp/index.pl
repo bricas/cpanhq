@@ -21,10 +21,21 @@ $|++;
 my $scan_packages = 1;
 my $scan_releases = 1;
 
+my $filter;
 GetOptions(
+    "filter=s" => \$filter,
     "scan-packages!" => \$scan_packages,
     "scan-releases!" => \$scan_releases,
 );   
+
+if (defined($filter))
+{
+    $filter = qr{$filter};
+}
+else
+{
+    $filter = qr{.}ms;
+}
 
 my $cpan_base = shift;
 
@@ -70,6 +81,7 @@ sub scan_releases
     my $count = 0;
     while ( defined ( my $file = $file_it->() ) ) {
         next if $file =~ m{/CHECKSUMS$};
+        next if $file !~ $filter;
         ( my $prefix = $file ) =~ s{^$cpan_base/}{};
         my $dist = $packages->distribution_from_prefix( $prefix );
         next unless $dist && defined $dist->version;
@@ -104,10 +116,15 @@ sub scan_packages
 {
     my $count = 0;
 
+    PACKAGES_LOOP:
     foreach my $pkg_obj ($packages->packages()) {
         my $name = $pkg_obj->package();
         my $dist = $pkg_obj->distribution()->dist();
         
+        if ($name !~ $filter)
+        {
+            next PACKAGES_LOOP;
+        }
         printf "\r%-75s", "$name ($count)";
         my $db_package = $package_rs->find_or_create(
             { name => $name, },
