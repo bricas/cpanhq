@@ -23,8 +23,11 @@ the functionality is very basic, but we have great ambitions.
 <li>Version control repository.</li>
 <li>Mailing list.</li>
 <li>Homepage.</li>
-<li>Keywords/labels/tags.</li>
+<li>Keywords/labels/tags.<br />
+<ul>
 <li>User-contributed labels/tags.</li>
+</ul>
+</li>
 </ol>
 </li>
 
