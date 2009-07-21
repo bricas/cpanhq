@@ -1,3 +1,62 @@
 [% title = 'About' %]
 <h2>About CPANHQ</h2>
-<p><em>To be written...</em></p>
+
+<p>Welcome to the <b>CPANHQ</b></p>
+
+<p>
+CPANHQ aims to be a community-driven, meta-data-enhanced alternative to such
+sites as <a href="http://search.cpan.org/">search.cpan.org</a> and 
+<a href="http://kobesearch.cpan.org/">kobesearch</a> . Currently,
+the functionality is very basic, but we have great ambitions.
+</p>
+
+<p>Some of the current and future features are:</p>
+
+<ol>
+<li>Pages for authors, distributions, releases.</li>
+<li>User accounts for logging in.</li>
+<li>A feed of recent releases.</li>
+
+<li>Extracting the following meta-data from the module:<br />
+<ol>
+<li>Licence.</li>
+<li>Version control repository.</li>
+<li>Mailing list.</li>
+<li>Homepage.</li>
+<li>Keywords/labels/tags.</li>
+<li>User-contributed labels/tags.</li>
+</ol>
+</li>
+
+<li>Blogs, Comments (?)</li>
+<li>Screenshots / Screencasts / etc.(?)</li>
+
+<li>JavaScript/AJAX goodness &#8211; sortable tables, AJAX, tabs, Dynamic <span class="caps">HTML</span>, etc.</li>
+<li>search.cpan.org-like Search.</li>
+<li>Support for <a href="http://perl.net.au/wiki/Finding_a_Module_on_CPAN/Module-Rank">Module-Rank</a></li>
+<li>ּRatings.</li>
+
+<li>Wiki pages.</li>
+<li>Perlmonks.org chatterboxes for every distribution. (?)</li>
+</ol>
+
+<h2>Ideas</h2>
+
+
+<ol>
+<li>if you plan to use "meta data", then maybe look at RDF or Topic Maps</li>
+</ol>
+
+
+<h2>Resources.</h2>
+
+
+<ul>
+<li><a href="irc://irc.perl.org/cpanhq">our IRC channel.</a></li>
+<li><a href="http://github.com/bricas/cpanhq/tree/master">the main repository.</a></li>
+<li><a href="http://github.com/shlomif/cpanhq/tree/master">shlomif's copy 
+which tends to be more up-to-date.</a></li>
+<li><a href="http://github.com/bricas/cpanhq/issues">bugs / requests / issues 
+tracker</a></li>
+</ul>
+
