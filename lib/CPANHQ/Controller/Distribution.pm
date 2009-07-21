@@ -48,7 +48,9 @@ sub instance :Chained('/') :PathPart('dist') :CaptureArgs(1) {
     while ( my $use = $uses->next ) {
         my $name = $use->dist_to->name;
         push @$dist_uses, $name;
-        $graph->add_edge( $latest->distribution->name, $name, );
+        my $node = $graph->add_node($name);
+        $node->set_attribute('link', ($c->uri_for("/dist", $name) . ""));
+        $graph->add_edge( $latest->distribution->name, $node, );
     }
 
     $c->stash(
@@ -98,6 +100,31 @@ sub graph :Chained('release') :PathPart("graph.png") :Args(0) {
 
     if ( !-f $graph_output ) {
         if ( open( my $png, '|-', qw(dot -Tpng -o), $graph_output ) ) {
+            print $png $graph->as_graphviz;
+            close($png);
+        }
+    }
+    
+    $c->serve_static_file($graph_output);
+
+    return;
+}
+
+sub svg_graph :Chained('release') :PathPart("graph.svg") :Args(0) {
+    my ($self, $c) = @_;
+
+    my $dist   = $c->stash->{dist};
+    my $latest = $dist->latest_release;
+    my $graph  = $c->stash->{graph};
+
+    my $graph_output = File::Spec->catfile(
+        $c->config->{'Controller::Distribution'}->{graph_path},
+        $dist->name . '-' . $latest->version . '.svg'
+    );
+    mkpath(dirname($graph_output));
+
+    if ( !-f $graph_output ) {
+        if ( open( my $png, '|-', qw(dot -Tsvg -o), $graph_output ) ) {
             print $png $graph->as_graphviz;
             close($png);
         }
