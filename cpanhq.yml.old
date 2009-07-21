@@ -1,8 +1,0 @@
----
-Controller::Distribution:
-  graph_path: __HOME__/root/dist/graph/
-Model::DB:
-  connect_info:
-  - dbi:SQLite:dbname=__HOME__/cpanhq.db
-  - undef
-name: CPANHQ
