@@ -47,7 +47,7 @@ my $authors_xml_fn = $cpan_base->file( qw( authors 00whois.xml ) )->stringify;
 
 print "Fetching Authors...\n";
 
-if (! -e $authors_xml_fn)
+if ((! -e $authors_xml_fn) || ((-M $authors_xml_fn) >= 1))
 {
     getstore("http://www.cpan.org/authors/00whois.xml", $authors_xml_fn);
 }
