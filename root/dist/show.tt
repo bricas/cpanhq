@@ -32,7 +32,10 @@
 <p>By <a href="[% c.uri_for( '/author', author.cpanid ) %]">[% author.name %]</a>, released on [% release.release_date.ymd %]</p>
 
 <h3 id="graph">Graph</h3>
-<img src="/dist/[% dist.name %]/release/[% release.version %]/graph.png" />
+[% image_base_url=c.uri_for('/dist', dist.name, 'release', release.version) %]
+<object type="image/svg+xml" data="[% image_base_url %]/graph.svg">
+<img src="[% image_base_url %]/graph.png" />
+</object>
 
 <h3 id="packages">Packages</h3>
 <ul>
