@@ -7,7 +7,8 @@ use base qw( DBIx::Class::ResultSet );
 
 sub auto_create {
     my ( $self, $authinfo ) = @_;
-    $self->create( { openid => $authinfo->{ openid }, } );
+    # TODO: handle results from OpenID ext.
+    $self->create( { url => $authinfo->{ url }, } );
 }
 
 1;

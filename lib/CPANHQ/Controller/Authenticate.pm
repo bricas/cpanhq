@@ -28,60 +28,13 @@ Login using OpenID.
 sub login : Path('/login') Args(0) {
     my ( $self, $c ) = @_;
     my $form = $c->form( 'Login' );
-    $form->action($c->uri_for('/authenticate/openid'));
-    $c->stash( form => $form, title => 'Login' );
 
-    return;
-
-=begin Hello 
-    return unless $form->was_submitted && $form->is_valid;
-
-    my $consumer = Net::OpenID::Consumer->new(
-        ua => LWPx::ParanoidAgent->new,
-        args => $c->req->params,
-        consumer_secret => sub { $_[0] },
-    );
-
-    my $identity = $consumer->claimed_identity( $form->field_value( 'claimed_uri' ) );
-    my $url = $identity->check_url(
-        return_to  => $c->uri_for('/authenticate/openid'),
-        trust_root => $c->uri_for('/'),
-        delayed_return => 1,
-    );
-
-    $c->res->redirect( $url );
-=end Hello
-
-=cut
-
-}
-
-=head2 $self->openid($c)
-
-Login using OpenID.
-
-=cut
-
-sub openid : Path('openid') Args(0) {
-    my( $self, $c ) = @_;
-
-    if ($c->authenticate({}, "openid"))
-    {
-        $c->persist_user();
-        $c->flash(message => "You signed in with OpenID!");
+    if( $c->authenticate ) {
         $c->res->redirect( $c->uri_for('/') );
+        return;
     }
-    else
-    {
-        $c->flash(message => "Could not authenticate with OpenID");
-        $c->response->body( "Could not authenticate with OpenID" );        
-        # $c->flash(message => "Could not authenticate with OpenID");
-        # $c->response->body( "Could not authenticate with OpenID" );
-        # Catalyst::Exception->throw(
-        #    'Error validating identity: '
-        # );
-    }
-    return;
+
+    $c->stash( form => $form, title => 'Login' );
 }
 
 =head2 $self->logout($c)

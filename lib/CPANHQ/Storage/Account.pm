@@ -33,7 +33,7 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    openid => {
+    url => {
         data_type   => 'varchar',
         size        => 512,
         is_nullable => 0,
@@ -57,7 +57,7 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( 'id' );
 
-__PACKAGE__->add_unique_constraint( [ 'openid' ] );
+__PACKAGE__->add_unique_constraint( [ 'url' ] );
 
 =head2 $self->display_name()
 
@@ -67,9 +67,10 @@ Returns a display name for the account.
 
 sub display_name {
     my $self = shift;
-    return $self->username || $self->openid;
+    return $self->username || $self->url;
 }
 
+*display = \&display_name;
 
 =head1 SEE ALSO
 
