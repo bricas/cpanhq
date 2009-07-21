@@ -4,6 +4,10 @@ use strict;
 use warnings;
 
 use parent 'Catalyst::Controller';
+use File::Path;
+use File::Basename;
+use File::Slurp;
+
 use Graph::Easy;
 
 __PACKAGE__->config->{namespace} = 'dist';
@@ -25,7 +29,7 @@ C</dist/MyDistro-On-CPAN/> .
 
 =cut
 
-sub instance :Chained('/') :PathPart(dist) :CaptureArgs(1) {
+sub instance :Chained('/') :PathPart('dist') :CaptureArgs(1) {
     my( $self, $c, $distname ) = @_;
     my $dist = $c->model('DB::Distribution')->find( { name => $distname }, { key => 'distribution_name' } );
 
@@ -35,7 +39,25 @@ sub instance :Chained('/') :PathPart(dist) :CaptureArgs(1) {
         $c->detach;
     }
 
-    $c->stash( dist => $dist );
+    my $latest = $dist->latest_release;
+    $latest->_process_meta_yml();
+
+    my $uses = $dist->uses;
+    my $dist_uses;
+    my $graph        = Graph::Easy->new();
+    while ( my $use = $uses->next ) {
+        my $name = $use->dist_to->name;
+        push @$dist_uses, $name;
+        $graph->add_edge( $latest->distribution->name, $name, );
+    }
+
+    $c->stash(
+        dist => $dist,
+        release => $latest,
+        title   => $latest->name,
+        uses    => $dist_uses,
+        graph => $graph,
+    );
 }
 
 =head2 $self->show($c)
@@ -44,37 +66,46 @@ The L<Catalyst> show method.
 
 =cut
 
-sub show : Chained(instance) : PathPart('') : Args(0) {
+sub show : Chained('instance') : PathPart('') :Args(0) {
     my ( $self, $c ) = @_;
     my $dist   = $c->stash->{dist};
-    my $latest = $dist->latest_release;
-    $latest->_process_meta_yml();
+}
 
-    my $graph        = Graph::Easy->new();
+sub release : Chained('instance') :PathPart('release') :CaptureArgs(1) {
+    my ($self, $c, $version) = @_;
+
+    my $dist = $c->stash->{'dist'};
+
+    my $release = $dist->releases( { version => $version } )->first;
+
+    $c->stash(release => $release);
+
+    return;
+}
+
+sub graph :Chained('release') :PathPart("graph.png") :Args(0) {
+    my ($self, $c) = @_;
+
+    my $dist   = $c->stash->{dist};
+    my $latest = $dist->latest_release;
+    my $graph  = $c->stash->{graph};
+
     my $graph_output = File::Spec->catfile(
         $c->config->{'Controller::Distribution'}->{graph_path},
         $dist->name . '-' . $latest->version . '.png'
     );
-
-    my $uses = $dist->uses;
-    my $dist_uses;
-    while ( my $use = $uses->next ) {
-        my $name = $use->dist_to->name;
-        push @$dist_uses, $name;
-        $graph->add_edge( $latest->distribution->name, $name, );
-    }
+    mkpath(dirname($graph_output));
 
     if ( !-f $graph_output ) {
-        if ( open( my $png, '|-', 'dot -Tpng -o ' . $graph_output ) ) {
+        if ( open( my $png, '|-', qw(dot -Tpng -o), $graph_output ) ) {
             print $png $graph->as_graphviz;
             close($png);
         }
     }
-    $c->stash(
-        release => $latest,
-        title   => $latest->name,
-        uses    => $dist_uses,
-    );
+    
+    $c->serve_static_file($graph_output);
+
+    return;
 }
 
 =head2 $self->version($c, $version)
@@ -83,7 +114,10 @@ Handles the distribution of version $version.
 
 =cut
 
-sub version :Chained(instance) :PathPart('') :Args(1) {
+
+=begin  BlockComment
+
+sub version :Chained('instance') :PathPart('') :Args(1) {
     my( $self, $c, $version ) = @_;
     my $dist = $c->stash->{ dist };
     my $release = $dist->releases( { version => $version } )->first;
@@ -98,6 +132,10 @@ sub version :Chained(instance) :PathPart('') :Args(1) {
 
     $c->stash( release => $release, title => $release->name );
 }
+
+=end    BlockComment
+
+=cut
 
 
 =head1 AUTHOR
