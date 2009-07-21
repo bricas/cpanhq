@@ -29,8 +29,20 @@ __PACKAGE__->config(
             openid => {
                 auto_create_user => 1,
                 credential => {
-                    class => 'Password',
-                    password_type => 'none',
+                    class => 'OpenID',
+                    extensions =>
+                    {
+                        'http://openid.net/extensions/sreg/1.1' => '1',
+                    },
+                    extension_args =>
+                    [
+                        "http://openid.net/extensions/sreg/1.1",
+                        {
+                            required => "email,timezone",
+                            optional => "fullname,nickname,timezone",
+                        },
+                    ],
+                    ua_class => "LWPx::ParanoidAgent",
                 },
                 store => {
                     class => 'DBIx::Class',
@@ -38,7 +50,7 @@ __PACKAGE__->config(
                     id_field => 'id',
                     role_relation => 'roles',
                     role_field => 'name',
-                }
+                },
             }
         }
     }

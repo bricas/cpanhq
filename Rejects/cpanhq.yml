@@ -1,0 +1,16 @@
+Plugin::Authentication:
+  default_realm: openid
+  realms:
+    openid:
+      credential:
+        class: OpenID
+        extension_args:
+        - http://openid.net/extensions/sreg/1.1
+        - required: "email,timezone"
+          optional: "fullname,nickname,timezone"
+        extensions:
+          'http://openid.net/extensions/sreg/1.1': '1'
+        ua_class: LWPx::ParanoidAgent
+      store:
+        class: Null
+  use_session: '1'
