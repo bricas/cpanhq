@@ -24,7 +24,7 @@ use CPANHQ::Storage;
                         name => "Games-Solitaire-Verify",
                     }
                 )->id(),
-            version => "0.07",
+            version => "0.08",
         }
     );
 
