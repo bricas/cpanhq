@@ -9,6 +9,6 @@
 <p>[% date_head %]</p>
 <ul>
 [% END %]
-    <li><a href="[% c.uri_for( '/dist', release.distribution.name, release.version) %]">[% release.name %]</a></li>
+    <li><a href="[% c.uri_for( '/dist', release.distribution.name, 'release', release.version) %]">[% release.name %]</a></li>
 [% END %]
 </ul>
