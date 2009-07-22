@@ -43,7 +43,7 @@ $(document).ready(function(){
 [% releases = author.releases_rs %]
 <ul>
 [% WHILE( release = releases.next ) %]
-<li><a href="[% c.uri_for( '/dist', release.distribution.name, release.version ) %]">[% release.name %]</a> on [% release.release_date.ymd %]</li>
+<li><a href="[% c.uri_for( '/dist', release.distribution.name, 'release', release.version ) %]">[% release.name %]</a> on [% release.release_date.ymd %]</li>
 [% END %]
 </ul>
 </div>
