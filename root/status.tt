@@ -5,4 +5,4 @@
 <li>View a list of <a href="[% c.uri_for( '/recent' ) %]">recent uploads</a></li>
 <li><a href="[% c.uri_for( '/author/BRICAS' ) %]">Author page</a> started</li>
 <li><a href="[% c.uri_for( '/dist/Image-TextMode' ) %]">Distribution page</a> started</li>
-<li><a href="[% c.uri_for( '/dist/Image-TextMode/0.05' ) %]">Specific version of a release</a> is also available</li>
+<li><a href="[% c.uri_for( '/dist/Image-TextMode/release/0.05' ) %]">Specific version of a release</a> is also available</li>

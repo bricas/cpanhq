@@ -29,6 +29,7 @@ requires 'List::Util';
 requires 'parent';
 requires 'Rose::HTML::Form';
 requires 'YAML::XS';
+test_requires 'Test::WWW::Mechanize::Catalyst';
 
 # for twitter feed
 requires 'XML::RSS';

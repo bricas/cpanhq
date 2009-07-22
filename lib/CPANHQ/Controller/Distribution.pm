@@ -85,6 +85,12 @@ sub release : Chained('instance') :PathPart('release') :CaptureArgs(1) {
     return;
 }
 
+sub release_show :Chained('release') :PathPart('') :Args(0) {
+    my ($self, $c) = @_;
+
+    return;
+}
+
 sub graph :Chained('release') :PathPart("graph.png") :Args(0) {
     my ($self, $c) = @_;
 
