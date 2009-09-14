@@ -22,12 +22,17 @@ requires 'Config::General';
 requires 'CPAN::Mini';
 requires 'DBIx::Class';
 requires 'DBIx::Class::TimeStamp';
+requires 'File::Next';
+requires 'File::Slurp';
 requires 'File::Spec';
 requires 'File::Temp';
 requires 'Graph::Easy';
 requires 'List::Util';
 requires 'parent';
+requires 'Parse::CPAN::Packages';
+requires 'Parse::CPAN::Whois';
 requires 'Rose::HTML::Form';
+requires 'Software::License';
 requires 'YAML::XS';
 test_requires 'Test::WWW::Mechanize::Catalyst';
 
